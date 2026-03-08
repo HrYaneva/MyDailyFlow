@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- HEADER -->
     <header class="top-bar">
         <h1 id="title">MyDailyFlow</h1>
 
@@ -17,47 +18,118 @@
         </div>
     </header>
 
-    <section class="add-task card">
-        <h2 id="newTaskTitle">Нова задача</h2>
+    <!-- MAIN CONTENT WRAPPER -->
+    <main>
 
-        <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Въведи задача...">
-        </div>
+        <!-- ========================= -->
+        <!--        TASKS TAB          -->
+        <!-- ========================= -->
+        <section id="tasksTab" class="tab active">
 
-        <div class="input-row">
-            <select id="categorySelect">
-                <option value="work">Работа</option>
-                <option value="home">Дом</option>
-                <option value="school">Училище</option>
-                <option value="personal">Лични</option>
-            </select>
+            <!-- SEARCH BAR -->
+            <div class="search-box card">
+                <input type="text" id="searchInput" placeholder="Търси задача...">
+            </div>
 
-            <select id="prioritySelect">
-                <option value="low">Нисък приоритет</option>
-                <option value="medium">Среден приоритет</option>
-                <option value="high">Висок приоритет</option>
-            </select>
-        </div>
+            <!-- ADD TASK -->
+            <section class="add-task card">
+                <h2 id="newTaskTitle">Нова задача</h2>
 
-        <div class="input-row">
-            <input type="date" id="dateInput">
-        </div>
+                <div class="input-group">
+                    <input type="text" id="taskInput" placeholder="Въведи задача...">
+                </div>
 
-        <button id="addTaskBtn" class="primary">Добави</button>
-    </section>
+                <div class="input-row">
+                    <select id="categorySelect">
+                        <option value="work">Работа</option>
+                        <option value="home">Дом</option>
+                        <option value="school">Училище</option>
+                        <option value="personal">Лични</option>
+                    </select>
 
-    <section class="tasks-section card">
-        <h2 id="myTasksTitle">Моите задачи</h2>
+                    <select id="prioritySelect">
+                        <option value="low">Нисък приоритет</option>
+                        <option value="medium">Среден приоритет</option>
+                        <option value="high">Висок приоритет</option>
+                    </select>
+                </div>
 
-        <div class="filters">
-            <button data-filter="all" class="active" id="filterAll">Всички</button>
-            <button data-filter="today" id="filterToday">Днес</button>
-            <button data-filter="done" id="filterDone">Готови</button>
-            <button data-filter="pending" id="filterPending">Неготови</button>
-        </div>
+                <div class="input-row">
+                    <input type="date" id="dateInput">
+                </div>
 
-        <ul id="taskList"></ul>
-    </section>
+                <button id="addTaskBtn" class="primary">Добави</button>
+            </section>
+
+            <!-- FILTERS -->
+            <section class="tasks-section card">
+                <h2 id="myTasksTitle">Моите задачи</h2>
+
+                <div class="filters">
+                    <button data-filter="all" class="active" id="filterAll">Всички</button>
+                    <button data-filter="today" id="filterToday">Днес</button>
+                    <button data-filter="week" id="filterWeek">Седмица</button>
+                    <button data-filter="done" id="filterDone">Готови</button>
+                    <button data-filter="pending" id="filterPending">Неготови</button>
+                </div>
+
+                <ul id="taskList" class="draggable-list"></ul>
+            </section>
+
+        </section>
+
+        <!-- ========================= -->
+        <!--      STATISTICS TAB       -->
+        <!-- ========================= -->
+        <section id="statsTab" class="tab">
+
+            <h2 class="stats-title">Статистики</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card blue">
+                    <h3 id="statTotal">0</h3>
+                    <p id="statTotalLabel">Общо задачи</p>
+                </div>
+
+                <div class="stat-card green">
+                    <h3 id="statDone">0</h3>
+                    <p id="statDoneLabel">Готови</p>
+                </div>
+
+                <div class="stat-card purple">
+                    <h3 id="statToday">0</h3>
+                    <p id="statTodayLabel">За днес</p>
+                </div>
+
+                <div class="stat-card orange">
+                    <h3 id="statWeek">0</h3>
+                    <p id="statWeekLabel">За седмицата</p>
+                </div>
+
+                <div class="stat-card yellow">
+                    <h3 id="statPercent">0%</h3>
+                    <p id="statPercentLabel">Процент изпълнение</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========================= -->
+    <!--      BOTTOM NAV BAR       -->
+    <!-- ========================= -->
+    <nav class="bottom-nav">
+        <button id="navTasks" class="active">
+            📋<br><span id="navTasksLabel">Задачи</span>
+        </button>
+
+        <button id="navStats">
+            📊<br><span id="navStatsLabel">Статистики</span>
+        </button>
+    </nav>
 
     <script src="script.js"></script>
 </body>
