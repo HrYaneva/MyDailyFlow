@@ -1,0 +1,163 @@
+/* Основни стилове */
+:root {
+    --bg: #f5f7fa;
+    --text: #222;
+    --accent: #6a5acd;
+    --card: #ffffff;
+    --border: #e0e0e0;
+
+    --bg-dark: #1e1e1e;
+    --text-dark: #f5f5f5;
+    --card-dark: #2a2a2a;
+    --border-dark: #444;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s ease;
+}
+
+/* Тъмна тема */
+body.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+body.dark .card {
+    background: var(--card-dark);
+    border-color: var(--border-dark);
+}
+
+body.dark .top-bar {
+    background: #111;
+}
+
+/* Горна лента */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--accent);
+    color: white;
+    font-size: 20px;
+}
+
+#themeToggle {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+
+/* Карти */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Добавяне на задача */
+.add-task h2,
+.tasks-section h2 {
+    margin-top: 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.input-row select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+/* Бутон */
+.primary {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.primary:hover {
+    opacity: 0.9;
+}
+
+/* Филтри */
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filters button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    cursor: pointer;
+}
+
+.filters button.active {
+    background: var(--accent);
+    color: white;
+}
+
+/* Списък със задачи */
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-item {
+    padding: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-item.done {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.task-item button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}

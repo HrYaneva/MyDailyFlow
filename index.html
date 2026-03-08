@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDailyFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>MyDailyFlow</h1>
+        <button id="themeToggle">🌙</button>
+    </header>
+
+    <section class="add-task">
+        <h2>Нова задача</h2>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Въведи задача...">
+        </div>
+
+        <div class="input-row">
+            <select id="categorySelect">
+                <option value="Работа">Работа</option>
+                <option value="Дом">Дом</option>
+                <option value="Училище">Училище</option>
+                <option value="Лични">Лични</option>
+            </select>
+
+            <select id="prioritySelect">
+                <option value="low">Нисък приоритет</option>
+                <option value="medium">Среден приоритет</option>
+                <option value="high">Висок приоритет</option>
+            </select>
+        </div>
+
+        <button id="addTaskBtn" class="primary">Добави</button>
+    </section>
+
+    <section class="tasks-section">
+        <h2>Моите задачи</h2>
+
+        <div class="filters">
+            <button data-filter="all" class="active">Всички</button>
+            <button data-filter="done">Готови</button>
+            <button data-filter="pending">Неготови</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
