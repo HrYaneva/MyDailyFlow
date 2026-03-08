@@ -9,12 +9,16 @@
 <body>
 
     <header class="top-bar">
-        <h1>MyDailyFlow</h1>
-        <button id="themeToggle">🌙</button>
+        <h1 id="title">MyDailyFlow</h1>
+
+        <div class="top-buttons">
+            <button id="langToggle">BG</button>
+            <button id="themeToggle">🌙</button>
+        </div>
     </header>
 
-    <section class="add-task">
-        <h2>Нова задача</h2>
+    <section class="add-task card">
+        <h2 id="newTaskTitle">Нова задача</h2>
 
         <div class="input-group">
             <input type="text" id="taskInput" placeholder="Въведи задача...">
@@ -22,10 +26,10 @@
 
         <div class="input-row">
             <select id="categorySelect">
-                <option value="Работа">Работа</option>
-                <option value="Дом">Дом</option>
-                <option value="Училище">Училище</option>
-                <option value="Лични">Лични</option>
+                <option value="work">Работа</option>
+                <option value="home">Дом</option>
+                <option value="school">Училище</option>
+                <option value="personal">Лични</option>
             </select>
 
             <select id="prioritySelect">
@@ -38,13 +42,13 @@
         <button id="addTaskBtn" class="primary">Добави</button>
     </section>
 
-    <section class="tasks-section">
-        <h2>Моите задачи</h2>
+    <section class="tasks-section card">
+        <h2 id="myTasksTitle">Моите задачи</h2>
 
         <div class="filters">
-            <button data-filter="all" class="active">Всички</button>
-            <button data-filter="done">Готови</button>
-            <button data-filter="pending">Неготови</button>
+            <button data-filter="all" class="active" id="filterAll">Всички</button>
+            <button data-filter="done" id="filterDone">Готови</button>
+            <button data-filter="pending" id="filterPending">Неготови</button>
         </div>
 
         <ul id="taskList"></ul>

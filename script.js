@@ -10,26 +10,100 @@ const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 const filterButtons = document.querySelectorAll(".filters button");
 const themeToggle = document.getElementById("themeToggle");
+const langToggle = document.getElementById("langToggle");
+
+// Текстове за двата езика
+const translations = {
+    bg: {
+        newTask: "Нова задача",
+        myTasks: "Моите задачи",
+        add: "Добави",
+        all: "Всички",
+        done: "Готови",
+        pending: "Неготови",
+        placeholder: "Въведи задача...",
+        categories: {
+            work: "Работа",
+            home: "Дом",
+            school: "Училище",
+            personal: "Лични"
+        },
+        priorities: {
+            low: "Нисък приоритет",
+            medium: "Среден приоритет",
+            high: "Висок приоритет"
+        }
+    },
+    en: {
+        newTask: "New Task",
+        myTasks: "My Tasks",
+        add: "Add",
+        all: "All",
+        done: "Completed",
+        pending: "Pending",
+        placeholder: "Enter a task...",
+        categories: {
+            work: "Work",
+            home: "Home",
+            school: "School",
+            personal: "Personal"
+        },
+        priorities: {
+            low: "Low priority",
+            medium: "Medium priority",
+            high: "High priority"
+        }
+    }
+};
+
+let currentLang = "bg";
+
+// Смяна на езика
+function updateLanguage() {
+    const t = translations[currentLang];
+
+    document.getElementById("newTaskTitle").textContent = t.newTask;
+    document.getElementById("myTasksTitle").textContent = t.myTasks;
+    addTaskBtn.textContent = t.add;
+
+    document.getElementById("filterAll").textContent = t.all;
+    document.getElementById("filterDone").textContent = t.done;
+    document.getElementById("filterPending").textContent = t.pending;
+
+    taskInput.placeholder = t.placeholder;
+
+    [...categorySelect.options].forEach(opt => {
+        opt.textContent = t.categories[opt.value];
+    });
+
+    [...prioritySelect.options].forEach(opt => {
+        opt.textContent = t.priorities[opt.value];
+    });
+
+    langToggle.textContent = currentLang.toUpperCase();
+}
+
+langToggle.addEventListener("click", () => {
+    currentLang = currentLang === "bg" ? "en" : "bg";
+    updateLanguage();
+    renderTasks();
+});
 
 // Зареждане на задачите от localStorage
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// Запазване в localStorage
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Рендиране на задачите
+// Рендиране
 function renderTasks(filter = "all") {
     taskList.innerHTML = "";
 
     let filtered = tasks;
 
-    if (filter === "done") {
-        filtered = tasks.filter(t => t.done);
-    } else if (filter === "pending") {
-        filtered = tasks.filter(t => !t.done);
-    }
+    if (filter === "done") filtered = tasks.filter(t => t.done);
+    if (filter === "pending") filtered = tasks.filter(t => !t.done);
 
     filtered.forEach(task => {
         const li = document.createElement("li");
@@ -38,7 +112,7 @@ function renderTasks(filter = "all") {
         li.innerHTML = `
             <span>
                 <strong>${task.text}</strong><br>
-                <small>${task.category} • ${task.priority}</small>
+                <small>${translations[currentLang].categories[task.category]} • ${translations[currentLang].priorities[task.priority]}</small>
             </span>
             <div>
                 <button onclick="toggleTask(${task.id})">✔</button>
@@ -50,19 +124,16 @@ function renderTasks(filter = "all") {
     });
 }
 
-// Добавяне на задача
+// Добавяне
 addTaskBtn.addEventListener("click", () => {
     const text = taskInput.value.trim();
-    const category = categorySelect.value;
-    const priority = prioritySelect.value;
-
-    if (text === "") return;
+    if (!text) return;
 
     const newTask = {
         id: Date.now(),
         text,
-        category,
-        priority,
+        category: categorySelect.value,
+        priority: prioritySelect.value,
         done: false
     };
 
@@ -73,11 +144,9 @@ addTaskBtn.addEventListener("click", () => {
     taskInput.value = "";
 });
 
-// Маркиране като готова
+// Маркиране
 function toggleTask(id) {
-    tasks = tasks.map(t =>
-        t.id === id ? { ...t, done: !t.done } : t
-    );
+    tasks = tasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
     saveTasks();
     renderTasks();
 }
@@ -104,5 +173,6 @@ themeToggle.addEventListener("click", () => {
     themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 });
 
-// Първоначално зареждане
+// Старт
+updateLanguage();
 renderTasks();
