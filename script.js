@@ -6,6 +6,7 @@
 const taskInput = document.getElementById("taskInput");
 const categorySelect = document.getElementById("categorySelect");
 const prioritySelect = document.getElementById("prioritySelect");
+const dateInput = document.getElementById("dateInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 const filterButtons = document.querySelectorAll(".filters button");
@@ -19,6 +20,7 @@ const translations = {
         myTasks: "Моите задачи",
         add: "Добави",
         all: "Всички",
+        today: "Днес",
         done: "Готови",
         pending: "Неготови",
         placeholder: "Въведи задача...",
@@ -39,6 +41,7 @@ const translations = {
         myTasks: "My Tasks",
         add: "Add",
         all: "All",
+        today: "Today",
         done: "Completed",
         pending: "Pending",
         placeholder: "Enter a task...",
@@ -67,6 +70,7 @@ function updateLanguage() {
     addTaskBtn.textContent = t.add;
 
     document.getElementById("filterAll").textContent = t.all;
+    document.getElementById("filterToday").textContent = t.today;
     document.getElementById("filterDone").textContent = t.done;
     document.getElementById("filterPending").textContent = t.pending;
 
@@ -102,6 +106,12 @@ function renderTasks(filter = "all") {
 
     let filtered = tasks;
 
+    const today = new Date().toISOString().split("T")[0];
+
+    if (filter === "today") {
+        filtered = tasks.filter(t => t.date === today);
+    }
+
     if (filter === "done") filtered = tasks.filter(t => t.done);
     if (filter === "pending") filtered = tasks.filter(t => !t.done);
 
@@ -112,7 +122,11 @@ function renderTasks(filter = "all") {
         li.innerHTML = `
             <span>
                 <strong>${task.text}</strong><br>
-                <small>${translations[currentLang].categories[task.category]} • ${translations[currentLang].priorities[task.priority]}</small>
+                <small>
+                    ${translations[currentLang].categories[task.category]} • 
+                    ${translations[currentLang].priorities[task.priority]} • 
+                    ${task.date}
+                </small>
             </span>
             <div>
                 <button onclick="toggleTask(${task.id})">✔</button>
@@ -127,13 +141,16 @@ function renderTasks(filter = "all") {
 // Добавяне
 addTaskBtn.addEventListener("click", () => {
     const text = taskInput.value.trim();
-    if (!text) return;
+    const date = dateInput.value;
+
+    if (!text || !date) return;
 
     const newTask = {
         id: Date.now(),
         text,
         category: categorySelect.value,
         priority: prioritySelect.value,
+        date,
         done: false
     };
 
@@ -142,6 +159,7 @@ addTaskBtn.addEventListener("click", () => {
     renderTasks();
 
     taskInput.value = "";
+    dateInput.value = "";
 });
 
 // Маркиране
