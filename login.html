@@ -7,33 +7,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
-<button id="langSwitcher" class="lang-btn">🇧🇬</button>
 
-    <div class="auth-container card">
+<button id="langToggle" class="lang-btn">🇧🇬</button>
 
-        <h2 id="authTitle">Вход</h2>
+<div class="auth-container card">
 
-        <label id="authEmailLabel" for="loginEmail"></label>
-        <input type="email" id="loginEmail" placeholder="Имейл">
+    <h2 id="authTitle">Вход</h2>
 
-        <label id="authPasswordLabel" for="loginPassword"></label>
-        <input type="password" id="loginPassword" placeholder="Парола">
+    <label id="authEmailLabel" for="loginEmail"></label>
+    <input type="email" id="loginEmail" placeholder="Имейл">
 
-        <button id="loginBtn" class="primary">Вход</button>
+    <label id="authPasswordLabel" for="loginPassword"></label>
+    <input type="password" id="loginPassword" placeholder="Парола">
 
-        <button id="googleLoginBtn" class="google-btn">Вход с Google</button>
-<p id="noAccountText">
-    Нямаш акаунт?
-    <a id="goToRegisterLink" href="register.html">Регистрация</a>
-</p>
+    <button id="loginBtn" class="primary">Вход</button>
 
-    </div>
+    <!-- GOOGLE LOGIN (само тук) -->
+   <button id="googleLoginBtn" class="google-btn">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
+    Вход с Google
+</button>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="script.js"></script>
+
+    <p id="noAccountText">
+        Нямаш акаунт?
+        <a id="goToRegisterLink" href="register.html">Регистрация</a>
+    </p>
+
+</div>
+
+<!-- Firebase v8 (правилната версия за твоя script.js) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>

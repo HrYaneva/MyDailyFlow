@@ -324,3 +324,60 @@ body.dark .task-item strong {
 .lang-btn:hover {
     transform: scale(1.1);
 }
+/* Основен бутон */
+.primary {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 10px;
+}
+
+.primary:hover {
+    background: linear-gradient(135deg, #5aa0f2, #3f84c7);
+    transform: translateY(-2px);
+}
+
+.primary:active {
+    transform: scale(0.98);
+}
+
+/* Google бутон */
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.2s ease;
+}
+
+.google-btn:hover {
+    background: #f7f7f7;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+.google-btn:active {
+    transform: scale(0.98);
+}
+
+/* Google иконка */
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}

@@ -7,32 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
-<button id="langSwitcher" class="lang-btn">🇧🇬</button>
 
-    <div class="auth-container card">
+<button id="langToggle" class="lang-btn">🇧🇬</button>
 
-        <h2 id="authTitle">Регистрация</h2>
+<div class="auth-container card">
 
-        <label id="authEmailLabel" for="registerEmail"></label>
-        <input type="email" id="registerEmail" placeholder="Имейл">
+    <h2 id="authTitle">Регистрация</h2>
 
-        <label id="authPasswordLabel" for="registerPassword"></label>
-        <input type="password" id="registerPassword" placeholder="Парола">
+    <label id="authEmailLabel" for="registerEmail"></label>
+    <input type="email" id="registerEmail" placeholder="Имейл">
 
-        <button id="registerBtn" class="primary">Регистрация</button>
+    <label id="authPasswordLabel" for="registerPassword"></label>
+    <input type="password" id="registerPassword" placeholder="Парола">
 
-        <p id="haveAccountText">
-            Имаш акаунт?
-            <a id="goToLoginLink" href="login.html">Вход</a>
-        </p>
+    <button id="registerBtn" class="primary">Регистрация</button>
 
-    </div>
+    <p id="haveAccountText">
+        Имаш акаунт?
+        <a id="goToLoginLink" href="login.html">Вход</a>
+    </p>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+</div>
 
-    <script src="script.js"></script>
+<!-- Firebase v8 (трябва да е същата версия като login.html) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="script.js"></script>
+
 </body>
 </html>
