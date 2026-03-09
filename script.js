@@ -174,33 +174,57 @@ let currentLang = "bg";
 function updateLanguage() {
     const t = translations[currentLang];
 
-    document.getElementById("newTaskTitle").textContent = t.newTask;
-    document.getElementById("myTasksTitle").textContent = t.myTasks;
+    // Helper: безопасно задаване на текст
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
 
-    els.addBtn.textContent = t.add;
+    // Основни заглавия
+    setText("newTaskTitle", t.newTask);
+    setText("myTasksTitle", t.myTasks);
 
-    document.getElementById("filterAll").textContent = t.all;
-    document.getElementById("filterToday").textContent = t.today;
-    document.getElementById("filterWeek").textContent = t.week;
-    document.getElementById("filterDone").textContent = t.done;
-    document.getElementById("filterPending").textContent = t.pending;
+    if (els.addBtn) els.addBtn.textContent = t.add;
 
-    els.search.placeholder = t.search;
-    els.taskInput.placeholder = t.placeholder;
+    // Филтри
+    setText("filterAll", t.all);
+    setText("filterToday", t.today);
+    setText("filterWeek", t.week);
+    setText("filterDone", t.done);
+    setText("filterPending", t.pending);
 
-    document.getElementById("navTasksLabel").textContent = t.navTasks;
-    document.getElementById("navStatsLabel").textContent = t.navStats;
+    // Полета
+    if (els.search) els.search.placeholder = t.search;
+    if (els.taskInput) els.taskInput.placeholder = t.placeholder;
 
-    document.getElementById("statTotalLabel").textContent = t.stats.total;
-    document.getElementById("statDoneLabel").textContent = t.stats.done;
-    document.getElementById("statTodayLabel").textContent = t.stats.today;
-    document.getElementById("statWeekLabel").textContent = t.stats.week;
-    document.getElementById("statPercentLabel").textContent = t.stats.percent;
+    // Навигация
+    setText("navTasksLabel", t.navTasks);
+    setText("navStatsLabel", t.navStats);
 
-    [...els.category.options].forEach(o => o.textContent = t.categories[o.value]);
-    [...els.priority.options].forEach(o => o.textContent = t.priorities[o.value]);
+    // Статистики
+    if (t.stats) {
+        setText("statTotalLabel", t.stats.total);
+        setText("statDoneLabel", t.stats.done);
+        setText("statTodayLabel", t.stats.today);
+        setText("statWeekLabel", t.stats.week);
+        setText("statPercentLabel", t.stats.percent);
+    }
 
-    els.lang.textContent = currentLang.toUpperCase();
+    // Категории
+    if (els.category) {
+        [...els.category.options].forEach(o => {
+            o.textContent = t.categories[o.value];
+        });
+    }
+
+    // Приоритети
+    if (els.priority) {
+        [...els.priority.options].forEach(o => {
+            o.textContent = t.priorities[o.value];
+        });
+    }
+
+    if (els.lang) els.lang.textContent = currentLang.toUpperCase();
 }
 
 els.lang?.addEventListener("click", () => {
