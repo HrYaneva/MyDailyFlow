@@ -100,10 +100,12 @@ main {
 .input-row input[type="date"],
 .search-box input {
     width: 100%;
-    padding: 8px 10px;
+    padding: 8px 8px;
     border-radius: 6px;
     border: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 13px;
+    height: 34px;
+    box-sizing: border-box;
 }
 
 .input-row {
