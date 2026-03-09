@@ -295,3 +295,15 @@ main {
 .tab.active {
     display: block;
 }
+body.dark .task-item {
+    background: #2a2a2a;      /* по-светъл фон от фона на страницата */
+    color: #f5f5f5;           /* светъл текст */
+    border-color: #555;
+}
+
+body.dark .task-item small {
+    color: #cccccc;           /* по-светъл сив текст за детайлите */
+}
+body.dark .task-item strong {
+    color: #ffffff;
+}
