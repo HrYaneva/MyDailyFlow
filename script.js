@@ -95,7 +95,80 @@ const els = {
       LANGUAGE
 ============================ */
 
-const translations = { /* твоя обект */ };
+const translations = {
+    bg: {
+        newTask: "Нова задача",
+        myTasks: "Моите задачи",
+        add: "Добави",
+        all: "Всички",
+        today: "Днес",
+        week: "Седмица",
+        done: "Готови",
+        pending: "Неготови",
+        search: "Търси задача...",
+        placeholder: "Въведи задача...",
+        navTasks: "Задачи",
+        navStats: "Статистики",
+
+        stats: {
+            total: "Общо задачи",
+            done: "Готови",
+            today: "За днес",
+            week: "За седмицата",
+            percent: "Процент изпълнение"
+        },
+
+        categories: {
+            work: "Работа",
+            home: "Дом",
+            school: "Училище",
+            personal: "Лични"
+        },
+
+        priorities: {
+            low: "Нисък приоритет",
+            medium: "Среден приоритет",
+            high: "Висок приоритет"
+        }
+    },
+
+    en: {
+        newTask: "New Task",
+        myTasks: "My Tasks",
+        add: "Add",
+        all: "All",
+        today: "Today",
+        week: "Week",
+        done: "Done",
+        pending: "Pending",
+        search: "Search task...",
+        placeholder: "Enter a task...",
+        navTasks: "Tasks",
+        navStats: "Statistics",
+
+        stats: {
+            total: "Total tasks",
+            done: "Completed",
+            today: "Today",
+            week: "This week",
+            percent: "Completion rate"
+        },
+
+        categories: {
+            work: "Work",
+            home: "Home",
+            school: "School",
+            personal: "Personal"
+        },
+
+        priorities: {
+            low: "Low priority",
+            medium: "Medium priority",
+            high: "High priority"
+        }
+    }
+};
+
 let currentLang = "bg";
 
 function updateLanguage() {
