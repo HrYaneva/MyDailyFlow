@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход – MyDailyFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+    <div class="auth-container card">
+        <h2>Вход</h2>
+
+        <input type="email" id="loginEmail" placeholder="Имейл">
+        <input type="password" id="loginPassword" placeholder="Парола">
+
+        <button id="loginBtn" class="primary">Вход</button>
+
+        <button id="googleLoginBtn" class="google-btn">Вход с Google</button>
+
+        <p>Нямаш акаунт? <a href="register.html">Регистрация</a></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
