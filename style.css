@@ -381,3 +381,6 @@ body.dark .task-item strong {
     width: 20px;
     height: 20px;
 }
+.google-btn img {
+    pointer-events: none;
+}
