@@ -270,9 +270,10 @@ function updateLanguage() {
     setText("goToLoginLink", t.auth.goToLogin);
 
     // Бутон за език
-    if (els.lang) {
+if (els.lang) {
     els.lang.textContent = currentLang === "bg" ? "🇧🇬" : "🇪🇳";
 }
+
 }
 
 els.lang?.addEventListener("click", () => {
