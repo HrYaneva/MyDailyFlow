@@ -1,4 +1,10 @@
 /* ============================
+      DOM SHORTCUT
+============================ */
+
+const $ = id => document.getElementById(id);
+
+/* ============================
       FIREBASE INIT
 ============================ */
 
@@ -57,12 +63,6 @@ function googleAuth() {
 }
 
 setupAuthForms();
-
-/* ============================
-      DOM SHORTCUT
-============================ */
-
-const $ = id => document.getElementById(id);
 
 const els = {
     taskInput: $("taskInput"),
