@@ -7,25 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
+<button id="langSwitcher" class="lang-btn">🇧🇬</button>
 
     <div class="auth-container card">
-        <h2>Вход</h2>
 
+        <h2 id="authTitle">Вход</h2>
+
+        <label id="authEmailLabel" for="loginEmail"></label>
         <input type="email" id="loginEmail" placeholder="Имейл">
+
+        <label id="authPasswordLabel" for="loginPassword"></label>
         <input type="password" id="loginPassword" placeholder="Парола">
 
         <button id="loginBtn" class="primary">Вход</button>
 
         <button id="googleLoginBtn" class="google-btn">Вход с Google</button>
 
-        <p>Нямаш акаунт? <a href="register.html">Регистрация</a></p>
+        <p id="noAccountText">
+            Нямаш акаунт?
+            <a id="goToRegisterLink" href="register.html">Регистрация</a>
+        </p>
+
     </div>
 
     <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>

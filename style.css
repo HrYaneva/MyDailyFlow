@@ -309,3 +309,18 @@ body.dark .task-item small {
 body.dark .task-item strong {
     color: #ffffff;
 }
+.lang-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s;
+}
+
+.lang-btn:hover {
+    transform: scale(1.1);
+}

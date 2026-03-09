@@ -7,18 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="auth-page">
+<button id="langSwitcher" class="lang-btn">🇧🇬</button>
 
     <div class="auth-container card">
-        <h2>Регистрация</h2>
 
+        <h2 id="authTitle">Регистрация</h2>
+
+        <label id="authEmailLabel" for="registerEmail"></label>
         <input type="email" id="registerEmail" placeholder="Имейл">
+
+        <label id="authPasswordLabel" for="registerPassword"></label>
         <input type="password" id="registerPassword" placeholder="Парола">
 
-        <button id="registerBtn" class="primary">Създай акаунт</button>
+        <button id="registerBtn" class="primary">Регистрация</button>
 
-        <button id="googleRegisterBtn" class="google-btn">Регистрация с Google</button>
+        <p id="haveAccountText">
+            Имаш акаунт?
+            <a id="goToLoginLink" href="login.html">Вход</a>
+        </p>
 
-        <p>Вече имаш акаунт? <a href="login.html">Вход</a></p>
     </div>
 
     <!-- Firebase SDK -->

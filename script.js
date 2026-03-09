@@ -94,8 +94,8 @@ const els = {
 /* ============================
       LANGUAGE
 ============================ */
-
 const translations = {
+    
     bg: {
         newTask: "Нова задача",
         myTasks: "Моите задачи",
@@ -129,6 +129,20 @@ const translations = {
             low: "Нисък приоритет",
             medium: "Среден приоритет",
             high: "Висок приоритет"
+        },
+
+        auth: {
+            loginTitle: "Вход",
+            registerTitle: "Регистрация",
+            email: "Имейл",
+            password: "Парола",
+            loginBtn: "Вход",
+            registerBtn: "Регистрация",
+            googleLogin: "Вход с Google",
+            noAccount: "Нямаш акаунт?",
+            haveAccount: "Имаш акаунт?",
+            goToRegister: "Регистрация",
+            goToLogin: "Вход"
         }
     },
 
@@ -165,8 +179,23 @@ const translations = {
             low: "Low priority",
             medium: "Medium priority",
             high: "High priority"
+        },
+
+        auth: {
+            loginTitle: "Login",
+            registerTitle: "Register",
+            email: "Email",
+            password: "Password",
+            loginBtn: "Login",
+            registerBtn: "Register",
+            googleLogin: "Login with Google",
+            noAccount: "Don't have an account?",
+            haveAccount: "Already have an account?",
+            goToRegister: "Register",
+            goToLogin: "Login"
         }
     }
+
 };
 
 let currentLang = "bg";
@@ -224,7 +253,26 @@ function updateLanguage() {
         });
     }
 
-    if (els.lang) els.lang.textContent = currentLang.toUpperCase();
+    // 🔹 AUTH страници (login / register)
+    setText("authTitle", t.auth.loginTitle);
+    setText("authEmailLabel", t.auth.email);
+    setText("authPasswordLabel", t.auth.password);
+
+    setText("loginBtn", t.auth.loginBtn);
+    setText("registerBtn", t.auth.registerBtn);
+
+    setText("googleLoginBtn", t.auth.googleLogin);
+
+    setText("noAccountText", t.auth.noAccount);
+    setText("haveAccountText", t.auth.haveAccount);
+
+    setText("goToRegisterLink", t.auth.goToRegister);
+    setText("goToLoginLink", t.auth.goToLogin);
+
+    // Бутон за език
+    if (els.lang) {
+    els.lang.textContent = currentLang === "bg" ? "🇧🇬" : "🇪🇳";
+}
 }
 
 els.lang?.addEventListener("click", () => {
