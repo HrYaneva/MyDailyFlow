@@ -253,7 +253,7 @@ function updateLanguage() {
         });
     }
 
-   // 🔹 AUTH страници (login / register)
+// 🔹 AUTH страници (login / register)
 if (document.body.classList.contains("auth-page")) {
 
     // Проверяваме дали сме на login или register
@@ -269,13 +269,11 @@ if (document.body.classList.contains("auth-page")) {
     // Бутони
     setText("loginBtn", t.auth.loginBtn);
     setText("registerBtn", t.auth.registerBtn);
-
     setText("googleLoginBtn", t.auth.googleLogin);
 
     // Линкове
     setText("noAccountText", t.auth.noAccount);
     setText("haveAccountText", t.auth.haveAccount);
-
     setText("goToRegisterLink", t.auth.goToRegister);
     setText("goToLoginLink", t.auth.goToLogin);
 }
