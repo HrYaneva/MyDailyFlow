@@ -253,21 +253,32 @@ function updateLanguage() {
         });
     }
 
-    // 🔹 AUTH страници (login / register)
-    setText("authTitle", t.auth.loginTitle);
+   // 🔹 AUTH страници (login / register)
+if (document.body.classList.contains("auth-page")) {
+
+    // Проверяваме дали сме на login или register
+    const isLogin = document.getElementById("loginBtn") !== null;
+
+    // Заглавие
+    setText("authTitle", isLogin ? t.auth.loginTitle : t.auth.registerTitle);
+
+    // Полета
     setText("authEmailLabel", t.auth.email);
     setText("authPasswordLabel", t.auth.password);
 
+    // Бутони
     setText("loginBtn", t.auth.loginBtn);
     setText("registerBtn", t.auth.registerBtn);
 
     setText("googleLoginBtn", t.auth.googleLogin);
 
+    // Линкове
     setText("noAccountText", t.auth.noAccount);
     setText("haveAccountText", t.auth.haveAccount);
 
     setText("goToRegisterLink", t.auth.goToRegister);
     setText("goToLoginLink", t.auth.goToLogin);
+}
 
     // Бутон за език
 if (els.lang) {
