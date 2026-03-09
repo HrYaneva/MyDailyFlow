@@ -12,9 +12,7 @@ const firebaseConfig = {
   measurementId: "G-W2Z6H2HDQW"
 };
 
-
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -23,43 +21,33 @@ const db = firebase.firestore();
 ============================ */
 
 auth.onAuthStateChanged(user => {
-    const isAuthPage =
-        location.pathname.includes("login.html") ||
-        location.pathname.includes("register.html");
-
-    if (!user && !isAuthPage) return location.href = "login.html";
-    if (user && isAuthPage) return location.href = "index.html";
-    if (user && !isAuthPage) loadTasks();
+    const authPage = location.pathname.includes("login") || location.pathname.includes("register");
+    if (!user && !authPage) location.href = "login.html";
+    if (user && authPage) location.href = "index.html";
+    if (user && !authPage) loadTasks();
 });
 
 /* ============================
-      LOGIN / REGISTER
+      AUTH FORMS
 ============================ */
 
 function setupAuthForms() {
-    const loginBtn = document.getElementById("loginBtn");
-    const googleLoginBtn = document.getElementById("googleLoginBtn");
-    const registerBtn = document.getElementById("registerBtn");
-    const googleRegisterBtn = document.getElementById("googleRegisterBtn");
+    const loginBtn = $("loginBtn");
+    const registerBtn = $("registerBtn");
+    const googleBtn = $("googleLoginBtn");
 
     if (loginBtn) {
-        loginBtn.onclick = () => {
-            auth.signInWithEmailAndPassword(
-                loginEmail.value,
-                loginPassword.value
-            ).catch(e => alert(e.message));
-        };
-        googleLoginBtn.onclick = googleAuth;
+        loginBtn.onclick = () =>
+            auth.signInWithEmailAndPassword(loginEmail.value, loginPassword.value)
+                .catch(e => alert(e.message));
+        googleBtn.onclick = googleAuth;
     }
 
     if (registerBtn) {
-        registerBtn.onclick = () => {
-            auth.createUserWithEmailAndPassword(
-                registerEmail.value,
-                registerPassword.value
-            ).catch(e => alert(e.message));
-        };
-        googleRegisterBtn.onclick = googleAuth;
+        registerBtn.onclick = () =>
+            auth.createUserWithEmailAndPassword(registerEmail.value, registerPassword.value)
+                .catch(e => alert(e.message));
+        googleBtn?.addEventListener("click", googleAuth);
     }
 }
 
@@ -71,31 +59,32 @@ function googleAuth() {
 setupAuthForms();
 
 /* ============================
-      DOM ELEMENTS
+      DOM SHORTCUT
 ============================ */
 
+const $ = id => document.getElementById(id);
+
 const els = {
-    taskInput: document.getElementById("taskInput"),
-    category: document.getElementById("categorySelect"),
-    priority: document.getElementById("prioritySelect"),
-    date: document.getElementById("dateInput"),
-    addBtn: document.getElementById("addTaskBtn"),
-    list: document.getElementById("taskList"),
-    search: document.getElementById("searchInput"),
-    filters: document.querySelectorAll(".filters button"),
-    theme: document.getElementById("themeToggle"),
-    lang: document.getElementById("langToggle"),
-    tasksTab: document.getElementById("tasksTab"),
-    statsTab: document.getElementById("statsTab"),
-    navTasks: document.getElementById("navTasks"),
-    navStats: document.getElementById("navStats")
+    taskInput: $("taskInput"),
+    category: $("categorySelect"),
+    priority: $("prioritySelect"),
+    date: $("dateInput"),
+    addBtn: $("addTaskBtn"),
+    list: $("taskList"),
+    search: $("searchInput"),
+    theme: $("themeToggle"),
+    lang: $("langToggle"),
+    tasksTab: $("tasksTab"),
+    statsTab: $("statsTab"),
+    navTasks: $("navTasks"),
+    navStats: $("navStats")
 };
 
 /* ============================
-      LANGUAGE
+      TRANSLATIONS
 ============================ */
+
 const translations = {
-    
     bg: {
         newTask: "Нова задача",
         myTasks: "Моите задачи",
@@ -109,7 +98,6 @@ const translations = {
         placeholder: "Въведи задача...",
         navTasks: "Задачи",
         navStats: "Статистики",
-
         stats: {
             total: "Общо задачи",
             done: "Готови",
@@ -117,20 +105,8 @@ const translations = {
             week: "За седмицата",
             percent: "Процент изпълнение"
         },
-
-        categories: {
-            work: "Работа",
-            home: "Дом",
-            school: "Училище",
-            personal: "Лични"
-        },
-
-        priorities: {
-            low: "Нисък приоритет",
-            medium: "Среден приоритет",
-            high: "Висок приоритет"
-        },
-
+        categories: { work: "Работа", home: "Дом", school: "Училище", personal: "Лични" },
+        priorities: { low: "Нисък приоритет", medium: "Среден приоритет", high: "Висок приоритет" },
         auth: {
             loginTitle: "Вход",
             registerTitle: "Регистрация",
@@ -159,7 +135,6 @@ const translations = {
         placeholder: "Enter a task...",
         navTasks: "Tasks",
         navStats: "Statistics",
-
         stats: {
             total: "Total tasks",
             done: "Completed",
@@ -167,20 +142,8 @@ const translations = {
             week: "This week",
             percent: "Completion rate"
         },
-
-        categories: {
-            work: "Work",
-            home: "Home",
-            school: "School",
-            personal: "Personal"
-        },
-
-        priorities: {
-            low: "Low priority",
-            medium: "Medium priority",
-            high: "High priority"
-        },
-
+        categories: { work: "Work", home: "Home", school: "School", personal: "Personal" },
+        priorities: { low: "Low priority", medium: "Medium priority", high: "High priority" },
         auth: {
             loginTitle: "Login",
             registerTitle: "Register",
@@ -195,94 +158,62 @@ const translations = {
             goToLogin: "Login"
         }
     }
-
 };
 
 let currentLang = "bg";
 
+/* ============================
+      LANGUAGE UPDATE
+============================ */
+
 function updateLanguage() {
     const t = translations[currentLang];
+    const set = (id, val) => $(id) && ($(id).textContent = val);
 
-    // Helper: безопасно задаване на текст
-    const setText = (id, value) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = value;
-    };
-
-    // Основни заглавия
-    setText("newTaskTitle", t.newTask);
-    setText("myTasksTitle", t.myTasks);
-
+    set("newTaskTitle", t.newTask);
+    set("myTasksTitle", t.myTasks);
     if (els.addBtn) els.addBtn.textContent = t.add;
 
-    // Филтри
-    setText("filterAll", t.all);
-    setText("filterToday", t.today);
-    setText("filterWeek", t.week);
-    setText("filterDone", t.done);
-    setText("filterPending", t.pending);
+    set("filterAll", t.all);
+    set("filterToday", t.today);
+    set("filterWeek", t.week);
+    set("filterDone", t.done);
+    set("filterPending", t.pending);
 
-    // Полета
     if (els.search) els.search.placeholder = t.search;
     if (els.taskInput) els.taskInput.placeholder = t.placeholder;
 
-    // Навигация
-    setText("navTasksLabel", t.navTasks);
-    setText("navStatsLabel", t.navStats);
+    set("navTasksLabel", t.navTasks);
+    set("navStatsLabel", t.navStats);
 
-    // Статистики
-    if (t.stats) {
-        setText("statTotalLabel", t.stats.total);
-        setText("statDoneLabel", t.stats.done);
-        setText("statTodayLabel", t.stats.today);
-        setText("statWeekLabel", t.stats.week);
-        setText("statPercentLabel", t.stats.percent);
+    set("statTotalLabel", t.stats.total);
+    set("statDoneLabel", t.stats.done);
+    set("statTodayLabel", t.stats.today);
+    set("statWeekLabel", t.stats.week);
+    set("statPercentLabel", t.stats.percent);
+
+    if (els.category)
+        [...els.category.options].forEach(o => o.textContent = t.categories[o.value]);
+
+    if (els.priority)
+        [...els.priority.options].forEach(o => o.textContent = t.priorities[o.value]);
+
+    if (document.body.classList.contains("auth-page")) {
+        const isLogin = $("loginBtn") !== null;
+
+        set("authTitle", isLogin ? t.auth.loginTitle : t.auth.registerTitle);
+        set("authEmailLabel", t.auth.email);
+        set("authPasswordLabel", t.auth.password);
+        set("loginBtn", t.auth.loginBtn);
+        set("registerBtn", t.auth.registerBtn);
+        set("googleLoginBtn", t.auth.googleLogin);
+        set("noAccountText", t.auth.noAccount);
+        set("haveAccountText", t.auth.haveAccount);
+        set("goToRegisterLink", t.auth.goToRegister);
+        set("goToLoginLink", t.auth.goToLogin);
     }
 
-    // Категории
-    if (els.category) {
-        [...els.category.options].forEach(o => {
-            o.textContent = t.categories[o.value];
-        });
-    }
-
-    // Приоритети
-    if (els.priority) {
-        [...els.priority.options].forEach(o => {
-            o.textContent = t.priorities[o.value];
-        });
-    }
-
-// 🔹 AUTH страници (login / register)
-if (document.body.classList.contains("auth-page")) {
-
-    // Проверяваме дали сме на login или register
-    const isLogin = document.getElementById("loginBtn") !== null;
-
-    // Заглавие
-    setText("authTitle", isLogin ? t.auth.loginTitle : t.auth.registerTitle);
-
-    // Полета
-    setText("authEmailLabel", t.auth.email);
-    setText("authPasswordLabel", t.auth.password);
-
-    // Бутони
-    setText("loginBtn", t.auth.loginBtn);
-    setText("registerBtn", t.auth.registerBtn);
-    setText("googleLoginBtn", t.auth.googleLogin);
-
-    // Линкове
-    setText("noAccountText", t.auth.noAccount);
-    setText("haveAccountText", t.auth.haveAccount);
-    setText("goToRegisterLink", t.auth.goToRegister);
-    setText("goToLoginLink", t.auth.goToLogin);
-}
-
-    // Бутон за език
-if (els.lang) {
-    els.lang.textContent = currentLang === "bg" ? "🇧🇬" : "🇪🇳";
-}
-
+    if (els.lang) els.lang.textContent = currentLang === "bg" ? "🇧🇬" : "🇪🇳";
 }
 
 els.lang?.addEventListener("click", () => {
@@ -300,10 +231,7 @@ let tasks = [];
 
 function loadTasks() {
     const uid = auth.currentUser.uid;
-
-    db.collection("users")
-        .doc(uid)
-        .collection("tasks")
+    db.collection("users").doc(uid).collection("tasks")
         .orderBy("createdAt")
         .onSnapshot(snap => {
             tasks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -313,21 +241,18 @@ function loadTasks() {
 }
 
 function addTask(task) {
-    const uid = auth.currentUser.uid;
-    db.collection("users").doc(uid).collection("tasks").add({
-        ...task,
-        createdAt: Date.now()
-    });
+    db.collection("users").doc(auth.currentUser.uid)
+        .collection("tasks").add({ ...task, createdAt: Date.now() });
 }
 
 function updateTask(id, data) {
-    const uid = auth.currentUser.uid;
-    db.collection("users").doc(uid).collection("tasks").doc(id).update(data);
+    db.collection("users").doc(auth.currentUser.uid)
+        .collection("tasks").doc(id).update(data);
 }
 
 function removeTask(id) {
-    const uid = auth.currentUser.uid;
-    db.collection("users").doc(uid).collection("tasks").doc(id).delete();
+    db.collection("users").doc(auth.currentUser.uid)
+        .collection("tasks").doc(id).delete();
 }
 
 /* ============================
@@ -337,7 +262,6 @@ function removeTask(id) {
 els.addBtn?.addEventListener("click", () => {
     const text = els.taskInput.value.trim();
     const date = els.date.value;
-
     if (!text || !date) return;
 
     addTask({
@@ -360,7 +284,6 @@ function renderTasks(filter = "all") {
     if (!els.list) return;
 
     els.list.innerHTML = "";
-
     let filtered = [...tasks];
     const today = new Date().toISOString().split("T")[0];
 
@@ -459,7 +382,7 @@ function enableDrag() {
 ============================ */
 
 function updateStats() {
-    if (!document.getElementById("statTotal")) return;
+    if (!$("statTotal")) return;
 
     const total = tasks.length;
     const done = tasks.filter(t => t.done).length;
