@@ -9,7 +9,7 @@ const $ = id => document.getElementById(id);
 ============================ */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDjHhHHWMLRilF9P2m-NKaTa1WP1NmIykI",
+  apiKey: "AIzaSyCKN9-zpzVMQ0FGt2NePORv_zGWkYTRcbs",
   authDomain: "mydailyflow-70095.firebaseapp.com",
   projectId: "mydailyflow-70095",
   storageBucket: "mydailyflow-70095.firebasestorage.app",
