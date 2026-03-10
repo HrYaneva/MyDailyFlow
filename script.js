@@ -204,25 +204,23 @@ function loadTasks() {
 }
 
 function addTask(task) {
-    db.collection("users").doc(auth.currentUser.uid).collection("tasks").add({ ...task, createdAt: Date.now() });
-}
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Грешка: Не сте влезли в профила си!");
+        return;
+    }
 
-function updateTask(id, data) {
-    db.collection("users").doc(auth.currentUser.uid).collection("tasks").doc(id).update(data);
+    db.collection("users").doc(user.uid).collection("tasks")
+        .add({ ...task, createdAt: Date.now() })
+        .then(() => {
+            console.log("Успешно записано в облака!");
+            updateStats(); // Обновяваме числата веднага
+        })
+        .catch(error => {
+            console.error("Грешка при запис:", error);
+            alert("Проблем с базата данни: " + error.message);
+        });
 }
-
-function removeTask(id) {
-    db.collection("users").doc(auth.currentUser.uid).collection("tasks").doc(id).delete();
-}
-
-els.addBtn?.addEventListener("click", () => {
-    const text = els.taskInput.value.trim();
-    const date = els.date.value;
-    if (!text || !date) return;
-    addTask({ text, category: els.category.value, priority: els.priority.value, date, done: false });
-    els.taskInput.value = "";
-    els.date.value = "";
-});
 
 function renderTasks(filter = "all") {
     if (!els.list) return;
@@ -322,6 +320,19 @@ els.navStats?.addEventListener("click", () => {
     els.navTasks.classList.remove("active");
     updateStats();
 });
-
+// Сложи това най-отдолу в script.js
+document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        // Махаме активния клас от стария бутон и го слагаме на новия
+        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        // Вземаме филтъра (all, today, done...)
+        const filterType = e.target.getAttribute('data-filter');
+        
+        // Преначертаваме задачите с този филтър
+        renderTasks(filterType);
+    });
+});
 // Стартираме езика
 updateLanguage();
