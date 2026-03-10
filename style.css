@@ -384,3 +384,16 @@ body.dark .task-item strong {
 .google-btn img {
     pointer-events: none;
 }
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.logout-mini {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
