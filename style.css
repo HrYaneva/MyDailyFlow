@@ -309,17 +309,7 @@ body.dark .task-item small {
 body.dark .task-item strong {
     color: #ffffff;
 }
-.lang-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    font-size: 26px;
-    cursor: pointer;
-    padding: 5px;
-    transition: 0.2s;
-}
+
 
 .lang-btn:hover {
     transform: scale(1.1);
@@ -447,45 +437,138 @@ body.dark .task-item strong {
     background-color: #ff1744;
     transform: scale(1.05); /* Малко "пулсиране" при посочване */
 }
-/* Специални настройки за телефони (екран под 600px) */
-@media screen and (max-width: 600px) {
+/* ==========================================
+   ПЪЛЕН МОБИЛЕН РЕМОНТ (Под 600px)
+   ========================================== */
     
-    /* 1. Намаляваме заглавието, за да не избутва бутоните */
-    .top-bar h1 {
-        font-size: 1.2rem;
-        margin-right: 5px;
+  @media screen and (max-width: 600px) {
+ 
+    .task-item {
+        padding: 12px 8px;
+        display: flex;
+        flex-direction: row; /* Връщаме ги на един ред */
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap; /* Пречим им да се късат на нов ред */
     }
 
-    /* 2. Подреждаме бутоните в хедъра да не се застъпват */
-    .top-buttons {
+    .task-item span {
+        flex: 1; /* Текстът заема останалото място */
+        margin-right: 10px;
+    }
+
+    .task-actions {
+        display: flex;
         gap: 5px;
+        flex-shrink: 0; /* Бутоните не се свиват */
     }
 
-    .top-buttons button {
-        padding: 5px 8px;
-        font-size: 0.9rem;
-    }
-
-    /* 3. Правим статистиките по 2 на ред вместо по 4 */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Две колони */
-        gap: 10px;
-    }
-
-    /* 4. Оправяме инпутите за добавяне на задача */
-    .input-row {
-        flex-direction: column; /* Един под друг вместо един до друг */
-        gap: 10px;
-    }
-
-    #taskInput, #dateInput, select {
-        width: 100%; /* Заемат целия ред */
-    }
-
-    /* 5. Увеличаваме бутоните в списъка (✔/✖), за да са удобни за пръст */
     .task-actions button {
-        padding: 12px;
-        min-width: 45px;
+        background: #f0f0f0; /* Лека основа за бутона */
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .filters {
+        display: flex;
+        overflow-x: auto; /* Позволява скролване наляво-надясно, ако не се събират */
+        white-space: nowrap;
+        padding-bottom: 5px;
+        gap: 5px;
+        flex-wrap: nowrap !important; /* ЗАДЪЛЖИТЕЛНО на един ред */
+        -webkit-overflow-scrolling: touch; /* Мазно скролване за iPhone */
+        padding: 5px 0;
+    }
+
+    .filters button {
+        min-width: 80px; /* Даваме им твърд размер */
+        flex: 0 0 auto; /* Пречи им да се мачкат */
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .top-bar {
+     .top-bar {
+        text-align: center;
+    }
+    }
+
+ .user-profile-box {
+        gap: 8px;
+        padding: 5px 10px;
+    }
+    #userName {
+        font-size: 0.9rem !important; /* Намаляваме името малко */
+    }
+    /* Бутоните за Език и Тема */
+    #themeToggle, #langToggle {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .top-buttons {
+        width: 100%;
+        justify-content: flex-end; /* Знамето и луната отиват вдясно */
+        gap: 15px;
+    }
+    
+    /* Скриваме "MyDailyFlow" заглавието на телефон, за да не пречи */
+    #title {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+
+    /* 2. Статистиките - 2 на ред (това е важно за прегледност) */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr !important; 
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 15px 5px;
+    }
+
+    .stat-card h3 {
+        font-size: 24px; /* Намаляваме огромните цифри */
+    }
+
+    /* 3. Формата за добавяне - всичко на нов ред */
+    .input-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .input-row select, .input-row input {
+        width: 100% !important;
+        margin: 0;
+    }
+
+    /* 4. Задачите - правим ги по-лесни за натискане */
+    .task-item {
+        padding: 15px 10px;
+        font-size: 15px;
+    }
+
+    /* По-голяма площ за бутоните за триене и отмятане */
+    .task-actions button {
+        padding: 10px 15px;
+        font-size: 20px;
+    }
+
+    /* 5. Долната навигация - малко по-висока за по-лесно "целене" */
+    .bottom-nav {
+        padding: 15px 0;
+    }
+    
+    /* Добавяме разстояние най-отдолу, за да не се скрива списъка под навигацията */
+    main {
+        padding-bottom: 100px;
+    }
+}
+
+/* Допълнителна корекция за МНОГО малки телефони */
+@media screen and (max-width: 360px) {
+    #title {
+        display: none; /* Скриваме заглавието на най-малките екрани, за да не пречи */
     }
 }
