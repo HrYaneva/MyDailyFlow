@@ -288,17 +288,40 @@ function enableDrag() {
 }
 
 function updateStats() {
-    if (!$("statTotal")) return;
+    // Вземаме елементите по ID-тата, които ти си написала в твоя HTML
+    const totalEl = $("statTotal");
+    const doneEl = $("statDone");
+    const todayEl = $("statToday");
+    const weekEl = $("statWeek"); // Това е за твоята оранжева карта
+    const percentEl = $("statPercent");
+
+    if (!totalEl) return;
+
     const total = tasks.length;
     const done = tasks.filter(t => t.done).length;
-    const today = new Date().toISOString().split("T")[0];
-    const todayCount = tasks.filter(t => t.date === today).length;
-    const percent = total ? Math.round(done / total * 100) : 0;
+    
+    // Логика за "Днес"
+    const todayStr = new Date().toISOString().split("T")[0];
+    const todayCount = tasks.filter(t => t.date === todayStr).length;
 
-    $("statTotal").textContent = total;
-    $("statDone").textContent = done;
-    $("statToday").textContent = todayCount;
-    $("statPercent").textContent = percent + "%";
+    // Логика за "Седмицата" (следващите 7 дни)
+    const now = new Date();
+    const nextWeek = new Date();
+    nextWeek.setDate(now.getDate() + 7);
+    
+    const weekCount = tasks.filter(t => {
+        const taskDate = new Date(t.date);
+        return taskDate >= now && taskDate <= nextWeek;
+    }).length;
+
+    const percent = total ? Math.round((done / total) * 100) : 0;
+
+    // Записваме числата в твоя HTML
+    totalEl.textContent = total;
+    if (doneEl) doneEl.textContent = done;
+    if (todayEl) todayEl.textContent = todayCount;
+    if (weekEl) weekEl.textContent = weekCount;
+    if (percentEl) percentEl.textContent = percent + "%";
 }
 
 els.theme?.addEventListener("click", () => {
