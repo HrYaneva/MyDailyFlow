@@ -398,33 +398,52 @@ body.dark .task-item strong {
     font-size: 1.2rem;
 }
 /* Стил за контейнера */
-.user-info {
+/* Основната кутия за профила */
+.user-profile-box {
     display: flex;
     align-items: center;
+    background: rgba(255, 255, 255, 0.15); /* Полупрозрачен фон */
+    padding: 8px 15px;
+    border-radius: 30px; /* Заоблени краища */
     gap: 15px;
-    margin-right: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Стил за името - правим го още по-голямо */
+/* Подредба на иконата и името */
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-icon {
+    font-size: 1.2rem;
+}
+
+/* СТИЛ ЗА ИМЕТО - тук го правим красиво */
 #userName {
-    color: white;
-    font-size: 1.3rem; /* По-голям размер */
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff; /* Бял цвят */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Лека сянка за четливост */
+    letter-spacing: 0.5px;
 }
 
-/* Стил за бутона за Logout - правим го червен, за да се вижда */
+/* СТИЛ ЗА БУТОНА ИЗХОД */
 #logoutBtn {
-    background-color: #ff4d4d; /* Червен цвят */
+    background-color: #ff5252; /* Приятно червено */
     color: white;
     border: none;
-    padding: 5px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: bold;
-    transition: background 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 #logoutBtn:hover {
-    background-color: #cc0000; /* По-тъмно червено при посочване */
+    background-color: #ff1744;
+    transform: scale(1.05); /* Малко "пулсиране" при посочване */
 }
