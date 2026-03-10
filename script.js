@@ -202,6 +202,17 @@ function loadTasks() {
             updateStats();
         });
 }
+function updateTask(id, data) {
+    const uid = auth.currentUser.uid;
+    db.collection("users").doc(uid).collection("tasks").doc(id).update(data);
+}
+
+function removeTask(id) {
+    const uid = auth.currentUser.uid;
+    if (confirm("Сигурни ли сте, че искате да изтриете тази задача?")) {
+        db.collection("users").doc(uid).collection("tasks").doc(id).delete();
+    }
+}
 
 function addTask(task) {
     const user = auth.currentUser;
@@ -221,7 +232,18 @@ function addTask(task) {
             alert("Проблем с базата данни: " + error.message);
         });
 }
+// Тези функции „говорят“ с базата данни
+function updateTask(id, data) {
+    const uid = auth.currentUser.uid;
+    db.collection("users").doc(uid).collection("tasks").doc(id).update(data);
+}
 
+function removeTask(id) {
+    const uid = auth.currentUser.uid;
+    if (confirm("Сигурни ли сте, че искате да изтриете тази задача?")) {
+        db.collection("users").doc(uid).collection("tasks").doc(id).delete();
+    }
+}
 function renderTasks(filter = "all") {
     if (!els.list) return;
     els.list.innerHTML = "";
@@ -251,16 +273,16 @@ function renderTasks(filter = "all") {
         li.dataset.id = task.id;
         if (task.done) li.classList.add("done");
         const icon = { low: "🌱", medium: "⚡", high: "🔥" }[task.priority];
-        li.innerHTML = `
-            <span>
-                <strong>${icon} ${task.text}</strong><br>
-                <small>${translations[currentLang].categories[task.category]} • ${translations[currentLang].priorities[task.priority]} • ${task.date}</small>
-            </span>
-            <div>
-                <button onclick="toggleTask('${task.id}')">✔</button>
-                <button onclick="deleteTask('${task.id}')">✖</button>
-            </div>`;
-        els.list.appendChild(li);
+   li.innerHTML = `
+    <span>
+        <strong>${icon} ${task.text}</strong><br>
+        <small>${translations[currentLang].categories[task.category]} • ${translations[currentLang].priorities[task.priority]} • ${task.date}</small>
+    </span>
+    <div class="task-actions">
+        <button class="btn-toggle" data-id="${task.id}">✔</button>
+        <button class="btn-delete" data-id="${task.id}">✖</button>
+    </div>`;
+els.list.appendChild(li);
     });
     enableDrag();
 }
@@ -323,7 +345,35 @@ function updateStats() {
     if (weekEl) weekEl.textContent = weekCount;
     if (percentEl) percentEl.textContent = percent + "%";
 }
+/* ============================
+      LISTENERS (СЛУШАТЕЛИ)
+============================ */
 
+// 1. Добавяне на задача
+els.addBtn?.addEventListener("click", () => {
+    const text = els.taskInput.value.trim();
+    const date = els.date.value;
+    if (!text || !date) {
+        alert("Моля, попълнете задача и дата!");
+        return;
+    }
+    addTask({ 
+        text, 
+        category: els.category.value, 
+        priority: els.priority.value, 
+        date, 
+        done: false 
+    });
+    els.taskInput.value = "";
+    els.date.value = "";
+});
+
+// 2. Търсачка (Добави го ТУК)
+els.search?.addEventListener("input", () => {
+    const activeBtn = document.querySelector('.filters button.active');
+    const filterType = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+    renderTasks(filterType);
+});
 els.theme?.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     els.theme.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
@@ -356,6 +406,31 @@ document.querySelectorAll('.filters button').forEach(btn => {
         // Преначертаваме задачите с този филтър
         renderTasks(filterType);
     });
+});
+// Това ще работи и на лаптоп, и на телефон!
+els.list.addEventListener("click", (e) => {
+    // Намираме бутона, който е натиснат
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    const id = btn.getAttribute('data-id');
+    if (!id) return;
+
+    // Проверяваме кой бутон е натиснат чрез класа му
+    if (btn.classList.contains("btn-toggle")) {
+        toggleTask(id);
+    } else if (btn.classList.contains("btn-delete")) {
+        deleteTask(id);
+    }
+});
+// ТЪРСАЧКА - Слушател за писане
+els.search?.addEventListener("input", () => {
+    // Вземаме кой филтър е натиснат в момента (Всички, Днес и т.н.)
+    const activeBtn = document.querySelector('.filters button.active');
+    const filterType = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+    
+    // Обновяваме списъка
+    renderTasks(filterType);
 });
 // Стартираме езика
 updateLanguage();
