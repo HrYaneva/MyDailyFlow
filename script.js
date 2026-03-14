@@ -1,11 +1,6 @@
-/* ============================
-      DOM SHORTCUT
-============================ */
+
 const $ = id => document.getElementById(id);
 
-/* ============================
-      FIREBASE INIT
-============================ */
 const firebaseConfig = {
   apiKey: "AIzaSyCKN9-zpzVMQ0FGt2NePORv_zGWkYTRcbs",
   authDomain: "mydailyflow-70095.firebaseapp.com",
@@ -20,36 +15,28 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-/* ============================
-      AUTH OBSERVER (LISTEN)
-============================ */
 auth.onAuthStateChanged(user => {
     const isAuthPage = location.pathname.includes("login") || location.pathname.includes("register");
     
     if (user) {
         console.log("Влязъл потребител:", user.displayName || user.email);
         
-        // Показваме името на потребителя, ако има такъв елемент в HTML
         if ($("userName")) $("userName").textContent = user.displayName || user.email;
         
-        // Ако сме на логин страница, отиваме в индекса
         if (isAuthPage) {
             location.href = "index.html";
         } else {
-            loadTasks(); // Зареждаме задачите само ако сме вътре
+            loadTasks(); 
         }
     } else {
         console.log("Няма логнат потребител.");
-        // Ако не сме логнати и не сме на логин страницата - препращаме към вход
+
         if (!isAuthPage) {
             location.href = "login.html";
         }
     }
 });
 
-/* ============================
-      AUTH FORMS & LOGIC
-============================ */
 function setupAuthForms() {
     const loginBtn = $("loginBtn");
     const registerBtn = $("registerBtn");
@@ -71,7 +58,6 @@ function setupAuthForms() {
         };
     }
 
-    // Унифициран клик за Google бутона
     if (googleBtn) {
         googleBtn.onclick = googleAuth;
     }
@@ -84,12 +70,8 @@ function googleAuth() {
         .catch(e => alert(e.message));
 }
 
-// Извикване на формата
 setupAuthForms();
 
-/* ============================
-      LOGOUT FUNCTIONALITY
-============================ */
 const logoutBtn = $("logoutBtn");
 if (logoutBtn) {
     logoutBtn.onclick = () => {
@@ -100,9 +82,6 @@ if (logoutBtn) {
     };
 }
 
-/* ============================
-      UI ELEMENTS & TRANSLATIONS
-============================ */
 const els = {
     taskInput: $("taskInput"),
     category: $("categorySelect"),
@@ -186,9 +165,6 @@ els.lang?.addEventListener("click", () => {
     updateStats();
 });
 
-/* ============================
-      FIRESTORE TASKS
-============================ */
 let tasks = [];
 
 function loadTasks() {
@@ -225,14 +201,13 @@ function addTask(task) {
         .add({ ...task, createdAt: Date.now() })
         .then(() => {
             console.log("Успешно записано в облака!");
-            updateStats(); // Обновяваме числата веднага
+            updateStats(); 
         })
         .catch(error => {
             console.error("Грешка при запис:", error);
             alert("Проблем с базата данни: " + error.message);
         });
 }
-// Тези функции „говорят“ с базата данни
 function updateTask(id, data) {
     const uid = auth.currentUser.uid;
     db.collection("users").doc(uid).collection("tasks").doc(id).update(data);
@@ -310,11 +285,10 @@ function enableDrag() {
 }
 
 function updateStats() {
-    // Вземаме елементите по ID-тата, които ти си написала в твоя HTML
     const totalEl = $("statTotal");
     const doneEl = $("statDone");
     const todayEl = $("statToday");
-    const weekEl = $("statWeek"); // Това е за твоята оранжева карта
+    const weekEl = $("statWeek"); 
     const percentEl = $("statPercent");
 
     if (!totalEl) return;
@@ -322,11 +296,9 @@ function updateStats() {
     const total = tasks.length;
     const done = tasks.filter(t => t.done).length;
     
-    // Логика за "Днес"
     const todayStr = new Date().toISOString().split("T")[0];
     const todayCount = tasks.filter(t => t.date === todayStr).length;
 
-    // Логика за "Седмицата" (следващите 7 дни)
     const now = new Date();
     const nextWeek = new Date();
     nextWeek.setDate(now.getDate() + 7);
@@ -338,18 +310,13 @@ function updateStats() {
 
     const percent = total ? Math.round((done / total) * 100) : 0;
 
-    // Записваме числата в твоя HTML
     totalEl.textContent = total;
     if (doneEl) doneEl.textContent = done;
     if (todayEl) todayEl.textContent = todayCount;
     if (weekEl) weekEl.textContent = weekCount;
     if (percentEl) percentEl.textContent = percent + "%";
 }
-/* ============================
-      LISTENERS (СЛУШАТЕЛИ)
-============================ */
 
-// 1. Добавяне на задача
 els.addBtn?.addEventListener("click", () => {
     const text = els.taskInput.value.trim();
     const date = els.date.value;
@@ -368,7 +335,6 @@ els.addBtn?.addEventListener("click", () => {
     els.date.value = "";
 });
 
-// 2. Търсачка (Добави го ТУК)
 els.search?.addEventListener("input", () => {
     const activeBtn = document.querySelector('.filters button.active');
     const filterType = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
@@ -393,44 +359,40 @@ els.navStats?.addEventListener("click", () => {
     els.navTasks.classList.remove("active");
     updateStats();
 });
-// Сложи това най-отдолу в script.js
+
 document.querySelectorAll('.filters button').forEach(btn => {
     btn.addEventListener('click', (e) => {
-        // Махаме активния клас от стария бутон и го слагаме на новия
+
         document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
         
-        // Вземаме филтъра (all, today, done...)
         const filterType = e.target.getAttribute('data-filter');
-        
-        // Преначертаваме задачите с този филтър
+
         renderTasks(filterType);
     });
 });
-// Това ще работи и на лаптоп, и на телефон!
+
 els.list.addEventListener("click", (e) => {
-    // Намираме бутона, който е натиснат
+
     const btn = e.target.closest('button');
     if (!btn) return;
 
     const id = btn.getAttribute('data-id');
     if (!id) return;
 
-    // Проверяваме кой бутон е натиснат чрез класа му
     if (btn.classList.contains("btn-toggle")) {
         toggleTask(id);
     } else if (btn.classList.contains("btn-delete")) {
         deleteTask(id);
     }
 });
-// ТЪРСАЧКА - Слушател за писане
+
 els.search?.addEventListener("input", () => {
-    // Вземаме кой филтър е натиснат в момента (Всички, Днес и т.н.)
+
     const activeBtn = document.querySelector('.filters button.active');
     const filterType = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
     
-    // Обновяваме списъка
     renderTasks(filterType);
 });
-// Стартираме езика
+
 updateLanguage();

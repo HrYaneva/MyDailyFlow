@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="top-bar">
         <h1 id="title">MyDailyFlow</h1>
 
@@ -26,20 +25,14 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main>
 
-        <!-- ========================= -->
-        <!--        TASKS TAB          -->
-        <!-- ========================= -->
         <section id="tasksTab" class="tab active">
 
-            <!-- SEARCH BAR -->
             <div class="search-box card">
                 <input type="text" id="searchInput" placeholder="Търси задача...">
             </div>
 
-            <!-- ADD TASK -->
             <section class="add-task card">
                 <h2 id="newTaskTitle">Нова задача</h2>
 
@@ -69,7 +62,6 @@
                 <button id="addTaskBtn" class="primary">Добави</button>
             </section>
 
-            <!-- FILTERS -->
             <section class="tasks-section card">
                 <h2 id="myTasksTitle">Моите задачи</h2>
 
@@ -86,9 +78,6 @@
 
         </section>
 
-        <!-- ========================= -->
-        <!--      STATISTICS TAB       -->
-        <!-- ========================= -->
         <section id="statsTab" class="tab">
 
             <h2 class="stats-title">Статистики</h2>
@@ -126,9 +115,6 @@
 
     </main>
 
-    <!-- ========================= -->
-    <!--      BOTTOM NAV BAR       -->
-    <!-- ========================= -->
     <nav class="bottom-nav">
         <button id="navTasks" class="active">
             📋<br><span id="navTasksLabel">Задачи</span>
@@ -139,13 +125,10 @@
         </button>
     </nav>
 
-     <!-- Firebase SDK -->
-<!-- Firebase v8 (старият синтаксис, който твоят код използва) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <!-- Основен скрипт -->
 <script src="script.js"></script>
 </body>
 </html>
